@@ -1,10 +1,10 @@
 {
   "next/src/**/*.ts": [
-    "prettier --fix",
+    "prettier --write",
     "eslint"
   ],
   "next/src/**/*.tsx": [
-    "prettier --fix",
+    "prettier --write",
     "eslint"
   ]
 }
