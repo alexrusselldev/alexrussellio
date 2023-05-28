@@ -5,7 +5,7 @@
   "main": ".",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "chmod +x ./scripts/* && ./scripts/prepare.sh"
   },
   "author": "Alex Russell",
   "license": "ISC",
