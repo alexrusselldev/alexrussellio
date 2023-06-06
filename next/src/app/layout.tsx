@@ -13,8 +13,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Header />
-      <body className="bg-gruv-bg-2">{children}</body>
+      <body className="bg-gruv-bg-2">
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }
