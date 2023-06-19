@@ -12,3 +12,8 @@ cd ..
 # prepare payload directory
 cd payload
 npm i
+
+cd ..
+
+# prepare env variables
+cp .env.example .env
