@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  next:
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile.next
+    image: next
+    ports:
+      - "${NEXT_PORT}:3000"
+    volumes:
+      - ./next:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    networks:
+      backend:
+
+  payload:
+    image: node:18-alpine
+    ports:
+      - "${PAYLOAD_PORT}:3000"
+    volumes:
+      - ./payload:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app/
+    command: sh -c "npm install && npm run dev"
+    depends_on:
+      - mongo
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/payload
+      PORT: ${PAYLOAD_PORT}
+      NODE_ENV: development
+      PAYLOAD_SECRET: TESTING
+      PAYLOAD_URL: ${PAYLOAD_URL}
+    networks:
+      backend:
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - data:/data/db
+    logging:
+      driver: none
+    networks:
+      backend:
+
+volumes:
+  data:
+  node_modules:
+
+networks:
+  backend:
